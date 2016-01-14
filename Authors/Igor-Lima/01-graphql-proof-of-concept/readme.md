@@ -1,13 +1,13 @@
 # **Proof of Concept** for two different implementations of GraghQL server
 
-As we already know GraphQL is an alternative to REST endpoints for handling queries and database updates.  And in this tech article I'll try to figure out which program language, among [Node](https://github.com/igorlima/expressjs-graphql-server) and [Java](https://github.com/igorlima/spark-graphql-server), is way faster to handle GraphQL queries. Also, I'll use some different tools to measure the perfomance as well as to show you everything you need to measure everything with your own hands.
+As we already know GraphQL is an alternative to REST endpoints for handling queries and database updates.  And in this tech article I'll try to figure out which programming language, among [Node](https://github.com/igorlima/expressjs-graphql-server) and [Java](https://github.com/igorlima/spark-graphql-server), is way faster to handle GraphQL queries. Also, I will use different tools to measure the perfomance and document the process.
 
-Let's start comparing some code base. The idea here is to make sure both implementations handle all requests using the same approach. For instance, the amount of calling to the database and so on. Bellow is the list of the source for each language:
+Let's start comparing some code. The idea here is to make sure both implementations handle all requests using the same approach. For instance, the amount of calling to the database and so on. Bellow is the list of the source for each language:
 
 * NodeJS: https://github.com/igorlima/expressjs-graphql-server
 * JAVA: https://github.com/igorlima/spark-graphql-server
 
-Both were implemented in a simple way. It doesn't matter what language you are smart on.  Most of developer can follow easily what the code is doing, and ensure that there is **no trick** to influence any language.
+We tried to keep both the implementations straightforward. 
 
 ## Server side code
 
@@ -39,7 +39,7 @@ public static GraphQLObjectType todoType = newObject()
   .build();
 ```
 
-In additional, we have to define a *query type* by using the same class [GraphQLObjectType](https://github.com/andimarek/graphql-java/blob/master/src/main/java/graphql/schema/GraphQLObjectType.java). The query type below defines a simple type to resolve a list of todos.
+In addition, we have to define a *query type* by using the same class [GraphQLObjectType](https://github.com/andimarek/graphql-java/blob/master/src/main/java/graphql/schema/GraphQLObjectType.java). The query type below defines a simple type to resolve a list of todos.
 
 ```java
 // https://github.com/igorlima/spark-graphql-server/blob/master/src/main/java/com/mycompany/app/TodoSchema.java
@@ -122,7 +122,7 @@ var TodoType = new GraphQLObjectType({
 })
 ```
 
-In additional, we have to define a *query type* by using the same object [GraphQLObjectType](https://github.com/andimarek/graphql-java/blob/master/src/main/java/graphql/schema/GraphQLObjectType.java). The query type below defines a simple type to resolve a list of todos.
+In addition, we have to define a *query type* by using the same object [GraphQLObjectType](https://github.com/andimarek/graphql-java/blob/master/src/main/java/graphql/schema/GraphQLObjectType.java). The query type below defines a simple type to resolve a list of todos.
 
 ```js
 // https://github.com/igorlima/expressjs-graphql-server/blob/master/schema.js
@@ -307,7 +307,7 @@ Percentage of the requests served within a certain time | ExpressJS (NodeJS) | S
 
 ### Using the Chrome browser
 
-In the live demo is noticeable the slowness of JAVA side. When we try to *toggle* a todo or even *delete* one, we can see an icon of loading... Again, we are using (*exactly*) the same client side code. Below is an image with a comparison of this *toggling*:
+In the live demo is noticeable the slowness of JAVA implementation. When we try to *toggle* a todo or even *delete* one, we can see an icon of loading... Again, we are using (*exactly*) the same client side code. Below is an image with a comparison of this *toggling*:
 
 NodeJS server | JAVA server
 ------------- | ------------
@@ -317,4 +317,4 @@ As seen, Java needs **2157ms** for this operation. On the other side, Node needs
 
 ## Conclusion
 
-At the end of the day, in terms of perfomance, I ended up in a conclusion that the GraphQL in Node is way better in comparison to JAVA implementation. If you are not agree with me, feel free to use the same code and do your own analysis. Everything I used is on the web. Still not agree, drop me a line on twitter and let's philosophize.
+At the end of the day, in terms of perfomance, I ended up in a conclusion that the GraphQL in Node is way better in comparison to JAVA implementation. Please feel free to use the code and comment on the analysis we have done.
